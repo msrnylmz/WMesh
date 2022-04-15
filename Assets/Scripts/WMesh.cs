@@ -13,34 +13,35 @@ public class WMesh
         get { return SetMesh(); }
     }
 
-    public WMesh(WVertices[] Vertices, Vector3[] Normals, Vector2[] UV, WOrderOfVertices[] Triangles, string Name = "Mesh")
+    public WMesh(Vector3[] Vertices, Vector3[] Normals, Vector2[] UV, WOrderOfVertices[] Triangles, string Name = "Mesh")
     {
-        this.Vertices = WMeshHelper.WVerticesToVertices(Vertices);
+        this.Vertices = Vertices;
         this.Triangles = WMeshHelper.WOrderOfVerticesToTriangles(Triangles);
-        this.Normals = Normals;
-        this.UV = UV;
+        //this.Normals = Normals;
+        //this.UV = UV;
         this.Name = Name;
     }
 
     private Mesh SetMesh()
     {
-        return new Mesh()
+        Mesh wMesh = new Mesh()
         {
             vertices = Vertices,
-            normals = Normals,
-            uv = UV,
+            //normals = Normals,
+            //uv = UV,
             triangles = Triangles
         };
+        wMesh.RecalculateNormals();
+        return wMesh;
     }
 
     public GameObject CreateMesh(Material material)
     {
         GameObject gameObject = new GameObject(this.Name);
+        gameObject.transform.position = new Vector3(-0.5f, 0.5f, 0.5f);
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
         meshRenderer.material = material;
-
-        Mesh.RecalculateNormals();
         meshFilter.mesh = this.Mesh;
         return gameObject;
     }
