@@ -3,17 +3,34 @@ using UnityEngine;
 public class SampleScript : MonoBehaviour
 {
     [SerializeField] private Material m_MeshMaterial;
-    [SerializeField] private string m_MeshName;
+    [SerializeField] private string m_CubeMeshName;
 
-    void Start()
+    [Space]
+
+    [Range(1, 100)]
+    public int Height;
+    [Range(1, 100)]
+    public int Width;
+    [Range(1, 100)]
+    public int UnitLenght;
+
+    private WMesh m_PlaneMesh;
+    private void Start()
     {
         Initialize();
     }
-
     private void Initialize()
     {
+        m_PlaneMesh = new WMesh();
+        WPlane plane = new WPlane(ref m_PlaneMesh, Width, Height, UnitLenght);
+        m_PlaneMesh.CreateMesh(m_MeshMaterial, "Plane " + Height + "x" + Width);
+
+        CreateCube();
+    }
+    private void CreateCube()
+    {
         Vector3[] wVertices = new Vector3[]
-        {
+ {
         new Vector3(0.5f, -0.5f, 0.5f),
         new Vector3(-0.5f, -0.5f, 0.5f),
         new Vector3(0.5f, 0.5f, 0.5f),
@@ -38,7 +55,7 @@ public class SampleScript : MonoBehaviour
         new Vector3(0.5f, 0.5f, -0.5f),
         new Vector3(0.5f, 0.5f, 0.5f),
         new Vector3(0.5f, -0.5f, 0.5f),
-        };
+ };
 
 
         WOrderOfVertices[] wOrderOfVertices = new WOrderOfVertices[]
@@ -57,7 +74,7 @@ public class SampleScript : MonoBehaviour
             new WOrderOfVertices ( 20 ,22 ,23),
         };
 
-        WMesh wMesh = new WMesh(wVertices, null, null, wOrderOfVertices, m_MeshName);
+        WMesh wMesh = new WMesh(wVertices, null, null, wOrderOfVertices, m_CubeMeshName);
         wMesh.CreateMesh(m_MeshMaterial);
     }
 }

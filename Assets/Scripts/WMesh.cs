@@ -12,7 +12,10 @@ public class WMesh
     {
         get { return SetMesh(); }
     }
-
+    public WMesh(string Name = "Mesh")
+    {
+        this.Name = Name;
+    }
     public WMesh(Vector3[] Vertices, Vector3[] Normals, Vector2[] UV, WOrderOfVertices[] Triangles, string Name = "Mesh")
     {
         this.Vertices = Vertices;
@@ -35,9 +38,9 @@ public class WMesh
         return wMesh;
     }
 
-    public GameObject CreateMesh(Material material)
+    public GameObject CreateMesh(Material material, string Name = "")
     {
-        GameObject gameObject = new GameObject(this.Name);
+        GameObject gameObject = new GameObject(Name == "" ? this.Name : Name);
         gameObject.transform.position = new Vector3(-0.5f, 0.5f, 0.5f);
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
