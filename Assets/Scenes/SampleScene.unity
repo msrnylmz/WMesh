@@ -168,9 +168,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MeshMaterial: {fileID: 2100000, guid: 8bf1b61fb6845dc45a142cd45f0b785d, type: 2}
   m_CubeMeshName: Cube
-  Height: 50
-  Width: 50
-  UnitLenght: 3
+  Height: 100
+  Width: 100
+  UnitLenght: 5
+  Scale: 30
+  HeightMultiplier: 12
+  Offset: 0.02
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

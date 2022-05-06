@@ -20,4 +20,11 @@ public class WMeshHelper
 
         return triangles;
     }
+
+    public static float WGenerateNoise(int x, int z, float scale, Vector3 pos, float offset)
+    {
+        float wX = (x + pos.x) / scale + offset;
+        float wZ = (z + pos.z) / scale + offset;
+        return Mathf.PerlinNoise(wX, wZ);
+    }
 }

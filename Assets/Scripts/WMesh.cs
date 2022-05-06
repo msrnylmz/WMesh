@@ -8,6 +8,9 @@ public class WMesh
     public Vector2[] UV;
     public int[] Triangles;
 
+    public GameObject gameo;
+    public MeshFilter meshFilter;
+
     public Mesh Mesh
     {
         get { return SetMesh(); }
@@ -25,7 +28,7 @@ public class WMesh
         this.Name = Name;
     }
 
-    private Mesh SetMesh()
+    public Mesh SetMesh()
     {
         Mesh wMesh = new Mesh()
         {
@@ -38,16 +41,23 @@ public class WMesh
         return wMesh;
     }
 
+
     public GameObject CreateMesh(Material material, string Name = "")
     {
-        GameObject gameObject = new GameObject(Name == "" ? this.Name : Name);
-        gameObject.transform.position = new Vector3(-0.5f, 0.5f, 0.5f);
-        MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer>();
+        gameo = new GameObject(Name == "" ? this.Name : Name);
+        gameo.transform.position = new Vector3(-0.5f, 0.5f, 0.5f);
+        meshFilter = gameo.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = gameo.AddComponent<MeshRenderer>();
         meshRenderer.material = material;
         meshFilter.mesh = this.Mesh;
-        return gameObject;
+        return gameo;
     }
+    public void SetGameObjectMesh()
+    {
+        meshFilter.mesh = this.Mesh;
+    }
+
+
 
     public void ClearMesh(GameObject gameObject)
     {

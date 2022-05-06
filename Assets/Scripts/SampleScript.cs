@@ -4,6 +4,7 @@ public class SampleScript : MonoBehaviour
 {
     [SerializeField] private Material m_MeshMaterial;
     [SerializeField] private string m_CubeMeshName;
+    private WPlane m_Plane;
 
     [Space]
 
@@ -15,18 +16,40 @@ public class SampleScript : MonoBehaviour
     public int UnitLenght;
 
     private WMesh m_PlaneMesh;
+
+    [Space]
+
+    [Header("Perlin Noise Effect")]
+    [Range(0.00001f, 100)]
+    public float Scale;
+    [Range(0.00001f, 100)]
+    public float HeightMultiplier;
+    [Range(0.00001f, 100)]
+    public float Offset;
+
     private void Start()
     {
         Initialize();
     }
+    private void Update()
+    {
+        Controller();
+    }
+
     private void Initialize()
     {
         m_PlaneMesh = new WMesh();
-        WPlane plane = new WPlane(ref m_PlaneMesh, Width, Height, UnitLenght);
+        m_Plane = new WPlane(ref m_PlaneMesh, Width, Height, UnitLenght);
         m_PlaneMesh.CreateMesh(m_MeshMaterial, "Plane " + Height + "x" + Width);
-
         CreateCube();
     }
+
+    private void Controller()
+    {
+        m_Plane.PerlinNoiseEffect(Scale, HeightMultiplier, Offset);
+        m_PlaneMesh.SetGameObjectMesh();
+    }
+
     private void CreateCube()
     {
         Vector3[] wVertices = new Vector3[]
